@@ -1,11 +1,31 @@
 <?php
-$howDeep = '../..';
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate"); // HTTP/1.1
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache"); // HTTP/1.0
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 
+$howDeep = '../..';
+include $howDeep.'/wp-includes/version.php';
+$goodLoginPage = "goodloginpage.$wp_version";
+// ensure that we have a saved version of the good login page:
+if (!file_exists($goodLoginPage)) {
+  // go get it from the wp svn repo:
+  exec("wget --output-document $goodLoginPage http://core.svn.wordpress.org/tags/$wp_version/wp-login.php");
+  echo "fetching it...";
+}
+if (!file_exists($goodLoginPage)) {
+  echo "sorry, we were unable to grab the fresh wp-login.php from svn";
+  die();
+}
+else {
+  echo "got it!";
+}
+
+die();
+
+// todo, use $goodLoginPage throughout... now we won't have to copy it out of the root
+// since we know from the above procedure that we have a good copy of it.
 $fourohfourPage = "<?php
     header('HTTP/1.0 404 Not Found');
     header('Cache-Control: no-store, no-cache, must-revalidate'); // HTTP/1.1
