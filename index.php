@@ -12,20 +12,11 @@ $goodLoginPage = "goodloginpage.$wp_version";
 if (!file_exists($goodLoginPage)) {
   // go get it from the wp svn repo:
   exec("wget --output-document $goodLoginPage http://core.svn.wordpress.org/tags/$wp_version/wp-login.php");
-  echo "fetching it...";
 }
 if (!file_exists($goodLoginPage)) {
   echo "sorry, we were unable to grab the fresh wp-login.php from svn";
   die();
 }
-else {
-  echo "got it!";
-}
-
-die();
-
-// todo, use $goodLoginPage throughout... now we won't have to copy it out of the root
-// since we know from the above procedure that we have a good copy of it.
 $fourohfourPage = "<?php
     header('HTTP/1.0 404 Not Found');
     header('Cache-Control: no-store, no-cache, must-revalidate'); // HTTP/1.1
@@ -46,13 +37,13 @@ if (isset($argv[1]) && is_numeric($argv[1])) {
   }
   else {
     //echo "not locked, locking\n";
-    file_put_contents("goodloginpage.save", $loginPageContents);
     file_put_contents("$howDeep/wp-login.php", $fourohfourPage);
   }
 }
 elseif ($_REQUEST['login'] == 1 || $_REQUEST['logout'] == 1 || $_REQUEST['unlockforlogin'] == 1) {
+  // copy the good login page to the wp-login.php
   if (strcmp($loginPageContents, $fourohfourPage) === 0) {
-    file_put_contents("$howDeep/wp-login.php", file_get_contents('goodloginpage.save'));
+    file_put_contents("$howDeep/wp-login.php", file_get_contents($goodLoginPage));
   }
  // else do nothing. as it is already unlocked (ie. first time running)
   //echo "now fire the lock after wait $locktime seconds\n"; 
@@ -77,7 +68,8 @@ elseif ($_REQUEST['login'] == 1 || $_REQUEST['logout'] == 1 || $_REQUEST['unlock
 }
 else {
 // todo get the site url and add to the title here, so they can bookmark this page
-  echo "<html><head><title>Secure login and logout for...</title></head><body>";
+  $servername = $_SERVER['HTTP_HOST'];
+  echo "<html><head><title>Secure login and logout for $servername</title></head><body>";
   echo "you can bookmark this page, then click one of the 2 options to either login or logout</br/>";
   echo "<a href='?login=1'>Click Here to Login</a> ";;
   echo "<a href='?logout=1'>Click Here to Logout</a> ";
