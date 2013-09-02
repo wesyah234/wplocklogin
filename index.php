@@ -70,7 +70,7 @@ else {
 // todo get the site url and add to the title here, so they can bookmark this page
   $servername = $_SERVER['HTTP_HOST'];
   echo "<html><head><title>Secure login and logout for $servername</title></head><body>";
-  echo "New version on github you can bookmark this page, then click one of the 2 options to either login or logout</br/>";
+  echo "Another...New version on github you can bookmark this page, then click one of the 2 options to either login or logout</br/>";
   echo "<a href='?login=1'>Click Here to Login</a> ";;
   echo "<a href='?logout=1'>Click Here to Logout</a> ";
   echo "<a href='?unlockforupgrade=1'>Click Here to unlock for an upgrade</a>";
