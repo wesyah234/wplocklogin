@@ -50,20 +50,20 @@ elseif ($_REQUEST['login'] == 1 || $_REQUEST['logout'] == 1 || $_REQUEST['unlock
   if ($_REQUEST['login'] == 1) {
     $locktime = 30;
     exec ("php index.php $locktime  > /dev/null 2>&1 &");
-    echo "login page now unlocked for $locktime seconds, click to ";
-    echo '<a href="'.$howDeep.'/wp-login.php">login</a> you may need to reload the page';
+    header("Location:$howDeep/wp-login.php");
   }
   elseif ($_REQUEST['logout'] == 1) {
     $locktime = 30;
     exec ("php index.php $locktime  > /dev/null 2>&1 &");
-    echo "login page now unlocked for $locktime seconds, click to ";
-    echo '<a href="'.$howDeep.'/wp-login.php?action=logout">logout</a> you may need to reload the page';
+    header("Location:$howDeep/wp-login.php?action=logout");
   }
   else {
+
+// todo this is not working...
     $locktime = 120;
     exec ("php index.php $locktime  > /dev/null 2>&1 &");
     echo "login page now unlocked for $locktime seconds, click to ";
-    echo '<a href="'.$howDeep.'/wp-admin">return to admin</a> you may need to reload the page';
+    echo '<a href="'.$howDeep.'/wp-admin">return to admin</a>';
   }
 }
 else {
