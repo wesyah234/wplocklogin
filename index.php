@@ -40,7 +40,7 @@ if (isset($argv[1]) && is_numeric($argv[1])) {
     file_put_contents("$howDeep/wp-login.php", $fourohfourPage);
   }
 }
-elseif ($_REQUEST['login'] == 1 || $_REQUEST['logout'] == 1 || $_REQUEST['unlockforlogin'] == 1) {
+elseif ($_REQUEST['login'] == 1 || $_REQUEST['logout'] == 1 || $_REQUEST['unlockforupgrade'] == 1) {
   // copy the good login page to the wp-login.php
   if (strcmp($loginPageContents, $fourohfourPage) === 0) {
     file_put_contents("$howDeep/wp-login.php", file_get_contents($goodLoginPage));
@@ -57,9 +57,7 @@ elseif ($_REQUEST['login'] == 1 || $_REQUEST['logout'] == 1 || $_REQUEST['unlock
     exec ("php index.php $locktime  > /dev/null 2>&1 &");
     header("Location:$howDeep/wp-login.php?action=logout");
   }
-  else {
-
-// todo this is not working...
+  elseif ($_REQUEST['unlockforupgrade'] == 1) {
     $locktime = 120;
     exec ("php index.php $locktime  > /dev/null 2>&1 &");
     echo "login page now unlocked for $locktime seconds, click to ";
