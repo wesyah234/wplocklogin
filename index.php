@@ -75,5 +75,7 @@ else {
   echo "<a href='?logout=1'>Click Here to Logout</a> ";
   echo "<a href='?unlockforupgrade=1'>Click Here to unlock for an upgrade</a>";
   echo "</body></html>";
+// check for and pull updates if the script is updated on github 
+  exec ("git pull  > /dev/null 2>&1 &");
 }
 ?>
