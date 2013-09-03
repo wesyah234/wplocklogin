@@ -69,6 +69,14 @@ else {
   $servername = $_SERVER['HTTP_HOST'];
   echo "<html><head><title>Secure login and logout for $servername</title></head><body>";
   echo "Another...New version on github you can bookmark this page, then click one of the 2 options to either login or logout</br/>";
+  echo "Status: your login page is currently <b>";
+  if (strcmp($loginPageContents, $fourohfourPage) === 0) {
+    echo "locked.";
+  }
+  else {
+    echo "UNLOCKED.";
+  }
+  echo "</b><br/>";
   echo "<a href='?login=1'>Click Here to Login</a> ";;
   echo "<a href='?logout=1'>Click Here to Logout</a> ";
   echo "<a href='?unlockforupgrade=1'>Click Here to unlock for an upgrade</a>";
