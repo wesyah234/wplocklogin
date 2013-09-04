@@ -27,6 +27,11 @@ $fourohfourPage = "<?php
     echo \"The page that you have requested could not be found.\";
     exit();
 ?>";
+// if file already not there, write out the 404 page to it, so rest
+// of logic can continue as is
+if (!file_exists("$howDeep/wp-login.php") {
+    file_put_contents("$howDeep/wp-login.php", $fourohfourPage);
+}
 $loginPageContents = file_get_contents("$howDeep/wp-login.php");
 if (isset($argv[1]) && is_numeric($argv[1])) {
   //echo "I will lock after waiting ".$argv[1]."\n";
