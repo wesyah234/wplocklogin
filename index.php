@@ -76,12 +76,34 @@ else {
   else {
     echo "UNLOCKED.";
   }
-  echo "</b><br/>";
-  echo "<a href='?login=1'>Click Here to Login</a> ";;
-  echo "<a href='?logout=1'>Click Here to Logout</a> ";
-  echo "<a href='?unlockforupgrade=1'>Click Here to unlock for an upgrade</a>";
-  echo "</body></html>";
-// check for and pull updates if the script is updated on github 
-  exec ("git pull  > /dev/null 2>&1 &");
+  $upgradInProgressFilename = 'upgradeInProgress';
+  if (!file_exists($upgradInProgressFilename)) {
+    file_put_contents($upgradInProgressFilename, ' empty ');
+    if (file_exists($upgradInProgressFilename)) {
+      exec("wget --output-document index.php.FromGithub https://raw.github.com/wesyah234/wplocklogin/master/index.php");
+      echo "got new file from github, now redirect";
+    }
+    else {
+      echo "sorry, unable to upgrade cause I can't write the upgradeinp rogress file to disk";
+    }
+  }
+  else {
+    echo "just got back after redirect";
+    echo "remove the file";
+    unlink($upgradInProgressFilename);
+    if (file_exists($upgradInProgressFilename)) {
+      echo "unable to delete the upgrade in progress file";
+    }
+    else {
+      echo "was able to delete the upgrade file";
+    }
+    echo "</b><br/>";
+    echo "<a href='?login=1'>Click Here to Login</a> ";
+    echo "<a href='?logout=1'>Click Here to Logout</a> ";
+    echo "<a href='?unlockforupgrade=1'>Click Here to unlock for an upgrade</a>";
+    echo "</body></html>";
+
+  }
+  //exec ("git pull  > /dev/null 2>&1 &");
 }
 ?>
