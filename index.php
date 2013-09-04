@@ -29,7 +29,7 @@ $fourohfourPage = "<?php
 ?>";
 // if file already not there, write out the 404 page to it, so rest
 // of logic can continue as is
-if (!file_exists("$howDeep/wp-login.php") {
+if (!file_exists("$howDeep/wp-login.php")) {
     file_put_contents("$howDeep/wp-login.php", $fourohfourPage);
 }
 $loginPageContents = file_get_contents("$howDeep/wp-login.php");
