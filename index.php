@@ -104,7 +104,7 @@ else {
     }
     echo "</b><br/>";
     echo "<a href='?login=1'>wesClick Here to Login</a> ";
-    echo "<a href='?logout=1'>Click Here to Logout</a> ";
+    echo "<a href='?logout=1'>HELLOClick Here to Logout</a> ";
     echo "<a href='?unlockforupgrade=1'>Click Here to unlock for an upgrade</a>";
     echo "</body></html>";
 
