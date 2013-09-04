@@ -72,21 +72,11 @@ elseif ($_REQUEST['login'] == 1 || $_REQUEST['logout'] == 1 || $_REQUEST['unlock
 else {
 // todo get the site url and add to the title here, so they can bookmark this page
   $servername = $_SERVER['HTTP_HOST'];
-  echo "<html><head><title>Secure login and logout for $servername</title></head><body>";
-  echo "Another...New version on github you can bookmark this page, then click one of the 2 options to either login or logout</br/>";
-  echo "Status: your login page is currently <b>";
-  if (strcmp($loginPageContents, $fourohfourPage) === 0) {
-    echo "locked.";
-  }
-  else {
-    echo "UNLOCKED.";
-  }
   $upgradInProgressFilename = 'upgradeInProgress';
   if (!file_exists($upgradInProgressFilename)) {
     file_put_contents($upgradInProgressFilename, ' empty ');
     if (file_exists($upgradInProgressFilename)) {
       exec("wget --output-document index.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
-      
       header("Location:index.php");
     }
     else {
@@ -100,10 +90,16 @@ else {
     if (file_exists($upgradInProgressFilename)) {
       echo "unable to delete the upgrade in progress file";
     }
-    else {
-      echo "was able to delete the upgrade file";
-    }
     echo "</b><br/>";
+    echo "<html><head><title>Secure login and logout for $servername</title></head><body>";
+    echo "Another...New version on github you can bookmark this page, then click one of the 2 options to either login or logout</br/>";
+    echo "Status: your login page is currently <b>";
+    if (strcmp($loginPageContents, $fourohfourPage) === 0) {
+      echo "locked.";
+    }
+    else {
+      echo "UNLOCKED.";
+    }    
     echo "<a href='?login=1'>wesClick Here to Login</a> ";
     echo "<a href='?logout=1'>HELLOClick Here to Logout</a> ";
     echo "<a href='?unlockforupgrade=1'>Click Here to unlock for an upgrade</a>";
