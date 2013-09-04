@@ -85,7 +85,7 @@ else {
   if (!file_exists($upgradInProgressFilename)) {
     file_put_contents($upgradInProgressFilename, ' empty ');
     if (file_exists($upgradInProgressFilename)) {
-      exec("wget --output-document index.php.FromGithub https://raw.github.com/wesyah234/wplocklogin/master/index.php");
+      exec("wget --output-document index.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
       echo "got new file from github, now redirect";
     }
     else {
