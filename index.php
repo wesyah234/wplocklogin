@@ -103,7 +103,7 @@ else {
       echo "was able to delete the upgrade file";
     }
     echo "</b><br/>";
-    echo "<a href='?login=1'>Click Here to Login</a> ";
+    echo "<a href='?login=1'>wesClick Here to Login</a> ";
     echo "<a href='?logout=1'>Click Here to Logout</a> ";
     echo "<a href='?unlockforupgrade=1'>Click Here to unlock for an upgrade</a>";
     echo "</body></html>";
