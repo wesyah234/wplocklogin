@@ -84,8 +84,7 @@ else {
     }
   }
   else {
-    echo "just got back after redirect";
-    echo "remove the file";
+    echo "===========";
     unlink($upgradInProgressFilename);
     if (file_exists($upgradInProgressFilename)) {
       echo "unable to delete the upgrade in progress file";
