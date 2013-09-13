@@ -41,12 +41,13 @@ if ($_REQUEST['ajaxunlock'] == 1 || $_REQUEST['login'] == 1 || $_REQUEST['logout
     echo "ajax unlock running...";
     $file = fopen('locklogin.log', 'a');
     $loginPageContents = file_get_contents("$howDeep/wp-login.php");
-    fwrite($file, date('r')." login page unlocked \n");
+    $seconds = 15;
+    fwrite($file, date('r')." login page unlocked for $seconds seconds\n");
     // copy the good login page to the wp-login.php
     if (strcmp($loginPageContents, $fourohfourPage) === 0) {
       file_put_contents("$howDeep/wp-login.php", file_get_contents($goodLoginPage));
     }
-    sleep(15);
+    sleep($seconds);
     fwrite($file, date('r')." login page locked \n");
     file_put_contents("$howDeep/wp-login.php", $fourohfourPage);
     fclose($file);
@@ -106,7 +107,7 @@ xmlhttp.send();
     echo "</head><body>";
 
     echo '<button type="button" onclick="loadXMLDoc()">Unlock</button><br/>';
-    echo "Version 1.2 you can bookmark this page, then click one of the 2 options to either login or logout</br/>";
+    echo "Instructions: Click the unlock button, then click below to login or logout<br/>";
     echo "<br/><b>Status</b>: your login page is currently <b>";
     $loginPageContents = file_get_contents("$howDeep/wp-login.php");
     if (strcmp($loginPageContents, $fourohfourPage) === 0) {
