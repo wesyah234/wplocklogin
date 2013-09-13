@@ -105,21 +105,20 @@ xmlhttp.send();
 
     echo "</head><body>";
 
-    echo '<button type="button" onclick="loadXMLDoc()">Unlock via ajax</button>';
-    echo "Version 1.0 you can bookmark this page, then click one of the 2 options to either login or logout</br/>";
-    echo "Status: your login page is currently <b>";
+    echo '<button type="button" onclick="loadXMLDoc()">Unlock</button><br/>';
+    echo "Version 1.1 you can bookmark this page, then click one of the 2 options to either login or logout</br/>";
+    echo "<br/><b>Status</b>: your login page is currently <b>";
     $loginPageContents = file_get_contents("$howDeep/wp-login.php");
     if (strcmp($loginPageContents, $fourohfourPage) === 0) {
       echo "locked.";
     }
     else {
-      echo "UNLOCKED.";
+      echo "unlocked.";
     }
 
 
-    echo "<br/><br/><a href='?login=1'>xClick Here to Login</a> ";
-    echo "<a href='?logout=1'>xClick Here to Logout</a> ";
-    echo "<a href='?unlockforupgrade=1'>Click Here to unlock for an upgrade</a>";
+    echo "<br/><br/><a href='?login=1'>Click Here to Login</a> ";
+    echo "<a href='?logout=1'>Click Here to Logout</a> ";
     echo "</body></html>";
 
   }
