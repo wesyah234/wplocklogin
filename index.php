@@ -64,7 +64,7 @@ else {
     file_put_contents($upgradInProgressFilename, ' empty ');
     if (file_exists($upgradInProgressFilename)) {
       exec("wget --output-document index.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
-      header("Location:./");
+      header("Location:");
     }
     else {
       echo "sorry, unable to upgrade cause I can't write the upgradeinp rogress file to disk";
@@ -106,7 +106,7 @@ xmlhttp.send();
     echo "</head><body>";
 
     echo '<button type="button" onclick="loadXMLDoc()">Unlock</button><br/>';
-    echo "Version 1.1 you can bookmark this page, then click one of the 2 options to either login or logout</br/>";
+    echo "Version 1.2 you can bookmark this page, then click one of the 2 options to either login or logout</br/>";
     echo "<br/><b>Status</b>: your login page is currently <b>";
     $loginPageContents = file_get_contents("$howDeep/wp-login.php");
     if (strcmp($loginPageContents, $fourohfourPage) === 0) {
