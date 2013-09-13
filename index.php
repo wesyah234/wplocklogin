@@ -64,7 +64,7 @@ else {
     file_put_contents($upgradInProgressFilename, ' empty ');
     if (file_exists($upgradInProgressFilename)) {
       exec("wget --output-document index.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
-      header("Location:.");
+      header("Location:index.php");
     }
     else {
       echo "sorry, unable to upgrade cause I can't write the upgradeinp rogress file to disk";
