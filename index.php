@@ -139,7 +139,7 @@ xmlhttp.send();
     $logFile = fopen('locklogin.log', 'r');
     $lines = read_last_lines($logFile, 10);
     fclose($logFile);
-    for ($i = count($lines); $i = 0; $i--) {
+    for ($i = count($lines); $i > 0; $i--) {
         echo $line[$i]."<br/>";
     }
 
