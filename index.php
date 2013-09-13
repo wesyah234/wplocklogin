@@ -116,7 +116,9 @@ xmlhttp.send();
       echo "unlocked.";
     }
 
-
+    $file = fopen('locklogin.log', 'a');
+    fwrite($file, date('r')." wplocklogin accessed \n");
+    fclose($file);
     echo "<br/><br/><a href='?login=1'>Click Here to Login</a> ";
     echo "<a href='?logout=1'>Click Here to Logout</a> ";
     echo "</body></html>";
