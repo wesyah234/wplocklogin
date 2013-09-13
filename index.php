@@ -67,7 +67,7 @@ if ($_REQUEST['ajaxunlock'] == 1 || $_REQUEST['login'] == 1 || $_REQUEST['logout
       file_put_contents("$howDeep/wp-login.php", file_get_contents($goodLoginPage));
     }
     sleep($seconds);
-    fwrite($file, date('r')." login page locked from IP: ".$_SERVER['REMOTE_ADDR']."\n");
+    fwrite($file, date('r')." login page re-locked from IP: ".$_SERVER['REMOTE_ADDR']."\n");
     file_put_contents("$howDeep/wp-login.php", $fourohfourPage);
     fclose($file);
     echo "ajax unlock done...";
@@ -135,7 +135,7 @@ xmlhttp.send();
     else {
       echo "unlocked.";
     }
-    echo "<br/>History:<br/>";
+    echo "</b><br/>History:<br/>";
     $logFile = fopen('locklogin.log', 'r');
     $lines = read_last_lines($logFile, 10);
     fclose($logFile);
