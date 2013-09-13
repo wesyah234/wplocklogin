@@ -135,12 +135,12 @@ xmlhttp.send();
     else {
       echo "unlocked.";
     }
-    echo "History:<br/>";
+    echo "<br/>History:<br/>";
     $logFile = fopen('locklogin.log', 'r');
     $lines = read_last_lines($logFile, 10);
     fclose($logFile);
-    foreach ($lines as $line) {
-        echo $line."<br/>";
+    for ($i = count($lines); $i = 0; $i--) {
+        echo $line[$i]."<br/>";
     }
 
     $file = fopen('locklogin.log', 'a');
