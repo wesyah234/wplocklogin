@@ -38,16 +38,16 @@ if ($_REQUEST['ajaxunlock'] == 1 || $_REQUEST['login'] == 1 || $_REQUEST['logout
   }
   elseif ($_REQUEST['ajaxunlock'] == 1) {
     ignore_user_abort(true);
+    echo "ajax unlock running...";
+    $file = fopen('locklogin.log', 'a');
     $loginPageContents = file_get_contents("$howDeep/wp-login.php");
+    fwrite($file, date('r')."login page unlocked \n");
     // copy the good login page to the wp-login.php
     if (strcmp($loginPageContents, $fourohfourPage) === 0) {
       file_put_contents("$howDeep/wp-login.php", file_get_contents($goodLoginPage));
     }
-    echo "ajax unlock running...";
-    $file = fopen('ajax.txt', 'a');
-    fwrite($file, date('r')."started sleeping \n");
     sleep(15);
-    fwrite($file, date('r')."finished sleeping, now locking \n");
+    fwrite($file, date('r')."login page locked \n");
     file_put_contents("$howDeep/wp-login.php", $fourohfourPage);
     fclose($file);
     echo "ajax unlock done...";
