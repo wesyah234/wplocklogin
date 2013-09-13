@@ -56,13 +56,13 @@ if ($_REQUEST['ajaxunlock'] == 1 || $_REQUEST['login'] == 1 || $_REQUEST['logout
     $file = fopen('locklogin.log', 'a');
     $loginPageContents = file_get_contents("$howDeep/wp-login.php");
     $seconds = 15;
-    fwrite($file, date('r')." login page unlocked for $seconds seconds\n");
+    fwrite($file, date('r')." login page unlocked for $seconds seconds from IP: ".$_SERVER['REMOTE_ADDR']."\n");
     // copy the good login page to the wp-login.php
     if (strcmp($loginPageContents, $fourohfourPage) === 0) {
       file_put_contents("$howDeep/wp-login.php", file_get_contents($goodLoginPage));
     }
     sleep($seconds);
-    fwrite($file, date('r')." login page locked \n");
+    fwrite($file, date('r')." login page locked from IP: ".$_SERVER['REMOTE_ADDR']."\n");
     file_put_contents("$howDeep/wp-login.php", $fourohfourPage);
     fclose($file);
     echo "ajax unlock done...";
@@ -134,7 +134,7 @@ xmlhttp.send();
 
     $file = fopen('locklogin.log', 'a');
     
-    print_r(readLines($file, 10));
+    echo(readLines($file, 10));
     
     
     fwrite($file, date('r')." wplocklogin accessed from IP: ".$_SERVER['REMOTE_ADDR']."\n");
