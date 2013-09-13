@@ -32,41 +32,28 @@ $fourohfourPage = "<?php
 if (!file_exists("$howDeep/wp-login.php")) {
     file_put_contents("$howDeep/wp-login.php", $fourohfourPage);
 }
-$loginPageContents = file_get_contents("$howDeep/wp-login.php");
-if (isset($argv[1]) && is_numeric($argv[1])) {
-  //echo "I will lock after waiting ".$argv[1]."\n";
-  sleep($argv[1]);
-  // if 404 not already there, put it there:
-  if (strcmp($loginPageContents, $fourohfourPage) === 0) {
-   // echo "already locked, do nothing\n ";
-  }
-  else {
-    //echo "not locked, locking\n";
-    file_put_contents("$howDeep/wp-login.php", $fourohfourPage);
-  }
-}
-elseif ($_REQUEST['login'] == 1 || $_REQUEST['logout'] == 1 || $_REQUEST['unlockforupgrade'] == 1) {
-  // copy the good login page to the wp-login.php
-  if (strcmp($loginPageContents, $fourohfourPage) === 0) {
-    file_put_contents("$howDeep/wp-login.php", file_get_contents($goodLoginPage));
-  }
- // else do nothing. as it is already unlocked (ie. first time running)
-  //echo "now fire the lock after wait $locktime seconds\n"; 
+if ($_REQUEST['ajaxunlock'] == 1 || $_REQUEST['login'] == 1 || $_REQUEST['logout'] == 1 || $_REQUEST['unlockforupgrade'] == 1) {
   if ($_REQUEST['login'] == 1) {
-    $locktime = 30;
-    exec ("php index.php $locktime  > /dev/null 2>&1 &");
     header("Location:$howDeep/wp-login.php");
   }
-  elseif ($_REQUEST['logout'] == 1) {
-    $locktime = 30;
-    exec ("php index.php $locktime  > /dev/null 2>&1 &");
-    header("Location:$howDeep/wp-login.php?action=logout");
+  elseif ($_REQUEST['ajaxunlock'] == 1) {
+    ignore_user_abort(true);
+    $loginPageContents = file_get_contents("$howDeep/wp-login.php");
+    // copy the good login page to the wp-login.php
+    if (strcmp($loginPageContents, $fourohfourPage) === 0) {
+      file_put_contents("$howDeep/wp-login.php", file_get_contents($goodLoginPage));
+    }
+    echo "ajax unlock running...";
+    $file = fopen('ajax.txt', 'a');
+    fwrite($file, date('r')."started sleeping \n");
+    sleep(15);
+    fwrite($file, date('r')."finished sleeping, now locking \n");
+    file_put_contents("$howDeep/wp-login.php", $fourohfourPage);
+    fclose($file);
+    echo "ajax unlock done...";
   }
-  elseif ($_REQUEST['unlockforupgrade'] == 1) {
-    $locktime = 120;
-    exec ("php index.php $locktime  > /dev/null 2>&1 &");
-    echo "login page now unlocked for $locktime seconds, click to ";
-    echo '<a href="'.$howDeep.'/wp-admin">return to admin</a>';
+  elseif ($_REQUEST['logout'] == 1) {
+    header("Location:$howDeep/wp-login.php?action=logout");
   }
 }
 else {
@@ -76,7 +63,7 @@ else {
   if (!file_exists($upgradInProgressFilename)) {
     file_put_contents($upgradInProgressFilename, ' empty ');
     if (file_exists($upgradInProgressFilename)) {
-      exec("wget --output-document index.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
+      // temp exec("wget --output-document index.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
       header("Location:index.php");
     }
     else {
@@ -90,17 +77,48 @@ else {
       echo "unable to delete the upgrade in progress file";
     }
     echo "</b><br/>";
-    echo "<html><head><title>Secure login and logout for $servername</title></head><body>";
+    echo "<html><head><title>Secure login and logout for $servername</title>";
+
+    echo "<script>
+    function loadXMLDoc()
+{
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject(\"Microsoft.XMLHTTP\");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    }
+  }
+xmlhttp.open(\"GET\",\"index.php?ajaxunlock=1\",true);
+xmlhttp.send();
+}
+</script>";
+
+
+    echo "</head><body>";
+
+    echo '<button type="button" onclick="loadXMLDoc()">Unlock via ajax</button>';
     echo "Another...New version on github you can bookmark this page, then click one of the 2 options to either login or logout</br/>";
     echo "Status: your login page is currently <b>";
+    $loginPageContents = file_get_contents("$howDeep/wp-login.php");
     if (strcmp($loginPageContents, $fourohfourPage) === 0) {
       echo "locked.";
     }
     else {
       echo "UNLOCKED.";
-    }    
-    echo "<a href='?login=1'>wesClick Here to Login</a> ";
-    echo "<a href='?logout=1'>HELLOClick Here to Logout</a> ";
+    }
+
+
+    echo "<a href='?login=1'>xClick Here to Login</a> ";
+    echo "<a href='?logout=1'>xClick Here to Logout</a> ";
     echo "<a href='?unlockforupgrade=1'>Click Here to unlock for an upgrade</a>";
     echo "</body></html>";
 
