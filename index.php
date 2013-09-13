@@ -118,7 +118,7 @@ xmlhttp.send();
     }
 
     $file = fopen('locklogin.log', 'a');
-    fwrite($file, date('r')." wplocklogin accessed \n");
+    fwrite($file, date('r')." wplocklogin accessed from IP: ".$_SERVER['REMOTE_ADDR']."\n");
     fclose($file);
     echo "<br/><br/><a href='?login=1'>Click Here to Login</a> ";
     echo "<a href='?logout=1'>Click Here to Logout</a> ";
