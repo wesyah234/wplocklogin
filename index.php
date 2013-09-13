@@ -150,6 +150,8 @@ xmlhttp.send();
 
     echo "<br/><br/><a href='?login=1'>Click Here to Login</a> ";
     echo "<a href='?logout=1'>Click Here to Logout</a> ";
+    echo "<br/><br/>To install this script, create a super secret directory under your web root, cd into that directory, and enter this command:<br/>";
+    echo " <code>wget https://raw.github.com/wesyah234/wplocklogin/master/index.php</code>";
     echo "</body></html>";
 
   }
