@@ -63,7 +63,7 @@ else {
   if (!file_exists($upgradInProgressFilename)) {
     file_put_contents($upgradInProgressFilename, ' empty ');
     if (file_exists($upgradInProgressFilename)) {
-      // temp exec("wget --output-document index.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
+      exec("wget --output-document index.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
       header("Location:index.php");
     }
     else {
@@ -106,7 +106,7 @@ xmlhttp.send();
     echo "</head><body>";
 
     echo '<button type="button" onclick="loadXMLDoc()">Unlock via ajax</button>';
-    echo "Another...New version on github you can bookmark this page, then click one of the 2 options to either login or logout</br/>";
+    echo "Version 1.0 you can bookmark this page, then click one of the 2 options to either login or logout</br/>";
     echo "Status: your login page is currently <b>";
     $loginPageContents = file_get_contents("$howDeep/wp-login.php");
     if (strcmp($loginPageContents, $fourohfourPage) === 0) {
@@ -117,7 +117,7 @@ xmlhttp.send();
     }
 
 
-    echo "<a href='?login=1'>xClick Here to Login</a> ";
+    echo "<br/><br/><a href='?login=1'>xClick Here to Login</a> ";
     echo "<a href='?logout=1'>xClick Here to Logout</a> ";
     echo "<a href='?unlockforupgrade=1'>Click Here to unlock for an upgrade</a>";
     echo "</body></html>";
