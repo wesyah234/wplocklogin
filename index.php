@@ -138,8 +138,10 @@ xmlhttp.send();
     echo "History:<br/>";
     $logFile = fopen('locklogin.log', 'r');
     $lines = read_last_lines($logFile, 10);
-    print_r($lines);
     fclose($logFile);
+    foreach ($lines as $line) {
+        echo $line."<br/>";
+    }
 
     $file = fopen('locklogin.log', 'a');
     fwrite($file, date('r')." wplocklogin accessed from IP: ".$_SERVER['REMOTE_ADDR']."\n");
