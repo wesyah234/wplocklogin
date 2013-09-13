@@ -140,7 +140,7 @@ xmlhttp.send();
     $lines = read_last_lines($logFile, 10);
     fclose($logFile);
     for ($i = count($lines); $i > 0; $i--) {
-        echo $line[$i]."<br/>";
+        echo $lines[$i]."<br/>";
     }
 
     $file = fopen('locklogin.log', 'a');
