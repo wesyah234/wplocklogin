@@ -5,6 +5,20 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache"); // HTTP/1.0
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 
+function readLines($fp, $num) {
+
+    $line_count = 0; $line = ''; $pos = -1; $lines = array(); $c = '';
+
+    while($line_count < $num) {
+        $line = $c . $line; 
+        fseek($fp, $pos--, SEEK_END);
+        $c = fgetc($fp);
+        if($c == "\n") { $line_count++; $lines[] = $line; $line = ''; $c = ''; }
+    }   
+    return $lines;
+}
+
+
 $howDeep = '..';
 include $howDeep.'/wp-includes/version.php';
 $goodLoginPage = "goodloginpage.$wp_version";
@@ -116,8 +130,13 @@ xmlhttp.send();
     else {
       echo "unlocked.";
     }
+    echo "History:<br/>";
 
     $file = fopen('locklogin.log', 'a');
+    
+    print_r(readLines($file, 10));
+    
+    
     fwrite($file, date('r')." wplocklogin accessed from IP: ".$_SERVER['REMOTE_ADDR']."\n");
     fclose($file);
     echo "<br/><br/><a href='?login=1'>Click Here to Login</a> ";
