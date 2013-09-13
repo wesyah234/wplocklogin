@@ -116,7 +116,7 @@ xmlhttp.send();
     else {
       echo "unlocked.";
     }
-    echo "History:<br/>";
+   // echo "History:<br/>";
 
     $file = fopen('locklogin.log', 'a');
     
