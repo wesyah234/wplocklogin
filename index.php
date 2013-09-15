@@ -60,7 +60,7 @@ if ($_REQUEST['ajaxunlock'] == 1 || $_REQUEST['login'] == 1 || $_REQUEST['logout
     echo "ajax unlock running...";
     $file = fopen('locklogin.log', 'a');
     $loginPageContents = file_get_contents("$howDeep/wp-login.php");
-    $seconds = 15;
+    $seconds = 30;
     fwrite($file, date('r')." login page unlocked for $seconds seconds from IP: ".$_SERVER['REMOTE_ADDR']."\n");
     // copy the good login page to the wp-login.php
     if (strcmp($loginPageContents, $fourohfourPage) === 0) {
