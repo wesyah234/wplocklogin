@@ -125,7 +125,6 @@ xmlhttp.send();
 
     echo "</head><body>";
 
-    echo '<button type="button" onclick="loadXMLDoc()">Unlock</button><br/>';
     echo "1.1 Instructions: Click the unlock button, then click below to login or logout<br/>";
     echo "<br/><b>Status</b>: your login page is currently <b>";
     $loginPageContents = file_get_contents("$howDeep/wp-login.php");
@@ -148,6 +147,7 @@ xmlhttp.send();
     }
 
 
+    echo '<button type="button" onclick="loadXMLDoc()">Unlock</button><br/>';
     echo "<br/><br/><a href='?login=1'>Click Here to Login</a> ";
     echo "<a href='?logout=1'>Click Here to Logout</a> ";
     echo "<br/><br/>To install this script, create a super secret directory under your web root, cd into that directory, and enter this command:<br/>";
