@@ -15,3 +15,8 @@ Visit your website at: http://yourwebsite.com/yourcrypticdirname
 Follow the instructions on that page to either unlock your login page to login, unlock your login page to logout, or unlock your login page for the purpose of a Wordpress upgrade.  (since a wordpress upgrade will want access to your wp-login.php script and it must be available)
 
 This script will automatically update itself from github whenever it is run!
+
+TODOS:
+make main page more friendly...
+move the unlock button closer to the login and logout buttons...
+add hyperlinks to the ip addresses, if clicked, will register that ip as a known ip, then if one is not linked, it can be flagged as suspect, keep a file of known ips and use to display whether we know the ip or not.
