@@ -125,7 +125,7 @@ xmlhttp.send();
 
     echo "</head><body>";
 
-    echo "1.1 Instructions: Click the unlock button, then click below to login or logout<br/>";
+    echo "<b>Instructions:</b> Click the unlock button, then click below to login or logout, we'll lock things back up in 30 seconds<br/>";
     echo "<br/><b>Status</b>: your login page is currently <b>";
     $loginPageContents = file_get_contents("$howDeep/wp-login.php");
     if (strcmp($loginPageContents, $fourohfourPage) === 0) {
@@ -138,7 +138,7 @@ xmlhttp.send();
     $file = fopen('locklogin.log', 'a');
     fwrite($file, date('r')." wplocklogin accessed from IP: ".$_SERVER['REMOTE_ADDR']."\n");
     fclose($file);
-    echo "</b><br/>History:<br/>";
+    echo "</b><br/><br/>History:<br/>";
     $logFile = fopen('locklogin.log', 'r');
     $lines = read_last_lines($logFile, 10);
     fclose($logFile);
