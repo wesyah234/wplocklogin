@@ -53,7 +53,7 @@ if (!file_exists("$howDeep/wp-login.php")) {
 }
 if ($_REQUEST['ajaxunlock'] == 1 || $_REQUEST['login'] == 1 || $_REQUEST['logout'] == 1 || $_REQUEST['unlockforupgrade'] == 1) {
   if ($_REQUEST['login'] == 1) {
-    header("Location:$howDeep/wp-login.php");
+    header("Location:$howDeep/wp-admin");
   }
   elseif ($_REQUEST['ajaxunlock'] == 1) {
     ignore_user_abort(true);
@@ -148,7 +148,7 @@ xmlhttp.send();
 
 
     echo '<br/><button type="button" onclick="loadXMLDoc()">Unlock</button><br/>';
-    echo "<br/><a href='wp-admin'>Click Here to Login</a> ";
+    echo "<br/><a href='?login=1'>Click Here to Login</a> ";
     echo "<a href='?logout=1'>Click Here to Logout</a> ";
     echo "<br/><br/>To install this script, create a super secret directory under your web root, cd into that directory, and enter this command:<br/>";
     echo " <code>wget https://raw.github.com/wesyah234/wplocklogin/master/index.php</code>";
