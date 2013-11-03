@@ -1,4 +1,3 @@
-
 <?php
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate"); // HTTP/1.1
@@ -87,7 +86,7 @@ else {
   if (!file_exists($upgradInProgressFilename)) {
     file_put_contents($upgradInProgressFilename, ' empty ');
     if (file_exists($upgradInProgressFilename)) {
-      exec("wget --output-document indexignore.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
+      exec("wget --output-document index.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
       header("Location:index.php");
     }
     else {
