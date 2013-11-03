@@ -1,3 +1,4 @@
+
 <?php
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate"); // HTTP/1.1
@@ -37,14 +38,20 @@ if (!file_exists($goodLoginPage)) {
   die();
 }
 $fourohfourPage = "<?php
-    header('HTTP/1.0 404 Not Found');
-    header('Cache-Control: no-store, no-cache, must-revalidate'); // HTTP/1.1
-    header('Cache-Control: post-check=0, pre-check=0', false);
-    header('Pragma: no-cache'); // HTTP/1.0
-    header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-    echo \"<h1>404 Not Found</h1>\";
-    echo \"The page that you have requested could not be found.\";
-    exit();
+header('HTTP/1.0 404 Not Found');
+header('Cache-Control: no-store, no-cache, must-revalidate'); // HTTP/1.1
+header('Cache-Control: post-check=0, pre-check=0', false);
+header('Pragma: no-cache'); // HTTP/1.0
+header('Expires: Sat, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+if (isset(\$_REQUEST['action']) && \$_REQUEST['action'] == 'logout') {
+  include 'wp-load.php';
+  wp_logout();
+  wp_safe_redirect('/');
+}
+else {
+  echo '<h1>404 Not Found</h1>';
+  echo 'The page that you have requested could not be found.';
+}
 ?>";
 // if file already not there, write out the 404 page to it, so rest
 // of logic can continue as is
@@ -72,9 +79,6 @@ if ($_REQUEST['ajaxunlock'] == 1 || $_REQUEST['login'] == 1 || $_REQUEST['logout
     fclose($file);
     echo "ajax unlock done...";
   }
-  elseif ($_REQUEST['logout'] == 1) {
-    header("Location:$howDeep/wp-login.php?action=logout");
-  }
 }
 else {
 // todo get the site url and add to the title here, so they can bookmark this page
@@ -83,7 +87,7 @@ else {
   if (!file_exists($upgradInProgressFilename)) {
     file_put_contents($upgradInProgressFilename, ' empty ');
     if (file_exists($upgradInProgressFilename)) {
-      exec("wget --output-document index.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
+      exec("wget --output-document indexignore.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
       header("Location:index.php");
     }
     else {
@@ -149,7 +153,6 @@ xmlhttp.send();
 
     echo '<br/><button type="button" onclick="loadXMLDoc()">Unlock</button><br/>';
     echo "<br/><a href='?login=1'>Click Here to Login</a> ";
-    echo "<a href='?logout=1'>Click Here to Logout</a> ";
     echo "<br/><br/>To install this script, create a super secret directory under your web root, cd into that directory, and enter this command:<br/>";
     echo " <code>wget https://raw.github.com/wesyah234/wplocklogin/master/index.php</code>";
     echo "</body></html>";
