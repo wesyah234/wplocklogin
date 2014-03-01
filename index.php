@@ -30,7 +30,7 @@ $goodLoginPage = "goodloginpage.$wp_version";
 // ensure that we have a saved version of the good login page:
 if (!file_exists($goodLoginPage)) {
   // go get it from the wp svn repo:
-  exec("wget --output-document $goodLoginPage http://core.svn.wordpress.org/tags/$wp_version/wp-login.php");
+  exec("wget --no-check-certificate --output-document $goodLoginPage http://core.svn.wordpress.org/tags/$wp_version/wp-login.php");
 }
 if (!file_exists($goodLoginPage)) {
   echo "sorry, we were unable to grab the fresh wp-login.php from svn";
@@ -86,7 +86,7 @@ else {
   if (!file_exists($upgradInProgressFilename)) {
     file_put_contents($upgradInProgressFilename, ' empty ');
     if (file_exists($upgradInProgressFilename)) {
-      exec("wget --output-document index.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
+      exec("wget --no-check-certificate --output-document index.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
       header("Location:index.php");
     }
     else {
@@ -100,7 +100,7 @@ else {
       echo "unable to delete the upgrade in progress file";
     }
     echo "</b><br/>";
-    echo "<html><head><title>Secure login and logout for $servername</title>";
+    echo "<html><head><title>$servername - Unlock login page</title>";
 
     echo "<script>
     function loadXMLDoc()
@@ -150,8 +150,8 @@ xmlhttp.send();
     }
 
 
-    echo '<br/><button type="button" onclick="loadXMLDoc()">Unlock</button><br/>';
-    echo "<br/><a href='?login=1'>Click Here to Login</a> ";
+    echo '<br/><button type="button" onclick="loadXMLDoc()">Step 1 - Unlock</button><br/>';
+    echo "<br/><a href='?login=1'>Step 2 - Login</a> ";
     echo "<br/><br/>To install this script, create a super secret directory under your web root, cd into that directory, and enter this command:<br/>";
     echo " <code>wget https://raw.github.com/wesyah234/wplocklogin/master/index.php</code>";
     echo "</body></html>";
