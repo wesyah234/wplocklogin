@@ -128,7 +128,7 @@ xmlhttp.send();
 
     echo "</head><body>";
 
-    echo "<b>Instructions:</b> Click the unlock button, then click below to login or logout, we'll lock things back up in a little bit<br/>";
+    echo "<b>Instructions:</b> Click the unlock button, then click the login link, we'll lock things back up in a little bit<br/>";
     echo "<br/><b>Status</b>: your login page is currently <b>";
     $loginPageContents = file_get_contents("$howDeep/wp-login.php");
     if (strcmp($loginPageContents, $fourohfourPage) === 0) {
