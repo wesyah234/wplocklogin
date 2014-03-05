@@ -153,7 +153,7 @@ xmlhttp.send();
     echo '<br/><button type="button" onclick="loadXMLDoc()">Step 1 - Unlock</button><br/>';
     echo "<br/><a href='?login=1'>Step 2 - Login</a> ";
     echo "<br/><br/>To install this script, create a super secret directory under your web root, cd into that directory, and enter this command:<br/>";
-    echo " <code>wget https://raw.github.com/wesyah234/wplocklogin/master/index.php</code>";
+    echo " <code>wget --no-check-certificate https://raw.github.com/wesyah234/wplocklogin/master/index.php</code>";
     echo "</body></html>";
 
   }
