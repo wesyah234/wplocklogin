@@ -137,8 +137,8 @@ xmlhttp.send();
     }
 
 
-    echo "<br/><br/>To install this script, create a super secret directory under your web root, cd into that directory, and enter this command:<br/>";
-    echo " <code>wget --no-check-certificate https://raw.github.com/wesyah234/wplocklogin/master/index.php</code>";
+    echo "<br/><br/>To install or upgrade this script, create a super secret directory under your web root, cd into that directory, and enter this command:<br/>";
+    echo " <code>rm index.php;wget --no-check-certificate https://raw.github.com/wesyah234/wplocklogin/master/index.php</code>";
     echo "</body></html>";
 
   //exec ("git pull  > /dev/null 2>&1 &");
