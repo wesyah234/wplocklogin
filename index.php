@@ -65,7 +65,7 @@ if ($_REQUEST['ajaxunlock'] == 1 || $_REQUEST['login'] == 1 || $_REQUEST['logout
     ignore_user_abort(true);
     echo "ajax unlock running...";
     $file = fopen('locklogin.log', 'a');
-    $loginPageContents = file_get_contents("$howDeep/wp-login.php");
+        $loginPageContents = file_get_contents("$howDeep/wp-login.php");
     $seconds = 60;
     fwrite($file, date('r')." login page unlocked for $seconds seconds from IP: ".$_SERVER['REMOTE_ADDR']."\n");
     // copy the good login page to the wp-login.php
@@ -82,23 +82,6 @@ if ($_REQUEST['ajaxunlock'] == 1 || $_REQUEST['login'] == 1 || $_REQUEST['logout
 else {
 // todo get the site url and add to the title here, so they can bookmark this page
   $servername = $_SERVER['HTTP_HOST'];
-  $upgradInProgressFilename = 'upgradeInProgress';
-  if (!file_exists($upgradInProgressFilename)) {
-    file_put_contents($upgradInProgressFilename, ' empty ');
-    if (file_exists($upgradInProgressFilename)) {
-      exec("wget --no-check-certificate --output-document index.php https://raw.github.com/wesyah234/wplocklogin/master/index.php");
-      header("Location:index.php");
-    }
-    else {
-      echo "sorry, unable to upgrade cause I can't write the upgradein progress file to disk";
-    }
-  }
-  else {
-    echo "===========";
-    unlink($upgradInProgressFilename);
-    if (file_exists($upgradInProgressFilename)) {
-      echo "unable to delete the upgrade in progress file";
-    }
     echo "</b><br/>";
     echo "<html><head><title>$servername - Unlock login page</title>";
 
@@ -129,7 +112,7 @@ xmlhttp.send();
     echo "</head><body>";
 
     echo "<b>Instructions:</b> Click the unlock button, then click the login link, we'll lock things back up in a little bit<br/>";
-    echo "<br/><b>Status</b>: your login page is currently <b>";
+    echo "<br/><b>Status</b>: your login page is currently ";
     $loginPageContents = file_get_contents("$howDeep/wp-login.php");
     if (strcmp($loginPageContents, $fourohfourPage) === 0) {
       echo "locked.";
@@ -137,26 +120,27 @@ xmlhttp.send();
     else {
       echo "unlocked.";
     }
-
+    echo "<br/><br/>";
     $file = fopen('locklogin.log', 'a');
     fwrite($file, date('r')." wplocklogin accessed from IP: ".$_SERVER['REMOTE_ADDR']."\n");
     fclose($file);
-    echo "</b><br/><br/>History:<br/>";
+
+    echo '<br/><button type="button" onclick="loadXMLDoc()">Step 1 - Unlock</button><br/>';
+    echo "<br/><a href='?login=1'>Step 2 - Login</a><br/><br/> ";
+
+    echo "<br/><br/>History:<br/>";
     $logFile = fopen('locklogin.log', 'r');
-    $lines = read_last_lines($logFile, 10);
+    $lines = read_last_lines($logFile, 20);
     fclose($logFile);
-    for ($i = count($lines); $i > 0; $i--) {
+        for ($i = count($lines); $i > 0; $i--) {
         echo $lines[$i]."<br/>";
     }
 
 
-    echo '<br/><button type="button" onclick="loadXMLDoc()">Step 1 - Unlock</button><br/>';
-    echo "<br/><a href='?login=1'>Step 2 - Login</a> ";
     echo "<br/><br/>To install this script, create a super secret directory under your web root, cd into that directory, and enter this command:<br/>";
     echo " <code>wget --no-check-certificate https://raw.github.com/wesyah234/wplocklogin/master/index.php</code>";
     echo "</body></html>";
 
-  }
   //exec ("git pull  > /dev/null 2>&1 &");
 }
 ?>
