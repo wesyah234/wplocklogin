@@ -30,7 +30,7 @@ $goodLoginPage = "goodloginpage.$wp_version";
 // ensure that we have a saved version of the good login page:
 if (!file_exists($goodLoginPage)) {
   // go get it from the wp svn repo:
-  exec("wget --no-check-certificate --output-document $goodLoginPage http://core.svn.wordpress.org/tags/$wp_version/wp-login.php");
+  exec("wget --no-check-certificate --output-document $goodLoginPage http://develop.svn.wordpress.org/tags/$wp_version/src/wp-login.php");
 }
 if (!file_exists($goodLoginPage)) {
   echo "sorry, we were unable to grab the fresh wp-login.php from svn";
